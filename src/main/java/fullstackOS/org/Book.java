@@ -1,51 +1,60 @@
 package fullstackOS.org;
 
 public class Book {
-        private String id;
-        private String title;
-        private String author;
-        private boolean available;
-        private Person borrower;
+    private String id;
+    private String title;
+    private String author;
+    private boolean available;
+    private Person borrower;
 
-        public Book(String id, String title, String author) {
-            this.id = id;
-            this.title = title;
-            this.author = author;
-            this.available = true;
-            this.borrower = null;
+    public Book(String id, String title, String author) {
+        if (id == null || id.isEmpty()) {
+            throw new IllegalArgumentException("Book ID cannot be empty.");
+        }
+        if (title == null || title.isEmpty()) {
+            throw new IllegalArgumentException("Book title cannot be empty.");
+        }
+        if (author == null || author.isEmpty()) {
+            throw new IllegalArgumentException("Book author cannot be empty.");
         }
 
-        public String getBookInformation() {
-            return "Book ID: " + id + ", Title: " + title + ", Author: " + author + ", Available: " + available;
-        }
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.available = true;
+        this.borrower = null;
+    }
 
-        // the getter and setters
-        public String getId() {
-            return id;
-        }
+    public String getBookInformation() {
+        return "Book ID: " + id + ", Title: " + title + ", Author: " + author + ", Available: " + available;
+    }
 
-        public String getTitle() {
-            return title;
-        }
+    // Getters and setters
+    public String getId() {
+        return id;
+    }
 
-        public String getAuthor() {
-            return author;
-        }
+    public String getTitle() {
+        return title;
+    }
 
-        public boolean isAvailable() {
-            return available;
-        }
+    public String getAuthor() {
+        return author;
+    }
 
-        public void setAvailable(boolean available) {
-            this.available = available;
-        }
+    public boolean isAvailable() {
+        return available;
+    }
 
-        public Person getBorrower() {
-            return borrower;
-        }
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
 
-        public void setBorrower(Person borrower) {
-            this.borrower = borrower;
-        }
+    public Person getBorrower() {
+        return borrower;
+    }
+
+    public void setBorrower(Person borrower) {
+        this.borrower = borrower;
     }
 }
