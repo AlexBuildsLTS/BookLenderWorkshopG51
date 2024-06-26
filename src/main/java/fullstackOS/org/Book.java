@@ -7,22 +7,30 @@ public class Book {
     private boolean available;
     private Person borrower;
 
-    public Book(String id, String title, String author) {
-        if (id == null || id.isEmpty()) {
-            throw new IllegalArgumentException("Book ID cannot be empty.");
-        }
+    public Book(String title, String author) {
+        this.id = generateId();
         if (title == null || title.isEmpty()) {
-            throw new IllegalArgumentException("Book title cannot be empty.");
+            throw new IllegalArgumentException("Book title cannot be null or empty.");
         }
         if (author == null || author.isEmpty()) {
-            throw new IllegalArgumentException("Book author cannot be empty.");
+            throw new IllegalArgumentException("Book author cannot be null or empty.");
         }
 
-        this.id = id;
         this.title = title;
         this.author = author;
         this.available = true;
         this.borrower = null;
+    }
+
+    public Book(String title, String author, Person borrower) {
+        this(title, author);
+        this.borrower = borrower;
+        this.available = false;
+    }
+
+    private String generateId() {
+        // Generate a unique ID for the book
+        return "BOOK" + System.currentTimeMillis();
     }
 
     public String getBookInformation() {
