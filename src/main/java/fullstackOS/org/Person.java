@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Person {
     private static int sequencer = 0;
-    private int id;
+    private final int id;
     private String firstName;
     private String lastName;
-    private List<Book> loanedBooks;
+    private final List<Book> loanedBooks;
 
     public Person(String firstName, String lastName) {
         if (firstName == null || firstName.isEmpty()) {
@@ -52,10 +52,6 @@ public class Person {
     }
 
     // Getters and setters
-    public int getId() {
-        return id;
-    }
-
     public String getFirstName() {
         return firstName;
     }
