@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Person {
     private static int sequencer = 0;
+
     private final int id;
     private String firstName;
     private String lastName;
@@ -29,18 +30,23 @@ public class Person {
     }
 
     public void loanBook(Book book) {
-        if (book.isAvailable()) {
-            loanedBooks.add(book);
-            book.setAvailable(false);
-            book.setBorrower(this);
-        } else {
-            System.out.println("Book is already loaned.");
+        if (book == null) {
+            throw new IllegalArgumentException("Book cannot be null.");
         }
+        if (!book.isAvailable()) {
+            throw new IllegalArgumentException("Book is not available.");
+        }
+
+        loanedBooks.add(book);
+        book.setBorrower(this);
     }
 
     public void returnBook(Book book) {
+        if (book == null) {
+            throw new IllegalArgumentException("Book cannot be null.");
+        }
+
         if (loanedBooks.remove(book)) {
-            book.setAvailable(true);
             book.setBorrower(null);
         } else {
             System.out.println("This book was not loaned by this person.");
@@ -48,10 +54,14 @@ public class Person {
     }
 
     public String getPersonInformation() {
-        return "Person ID: " + id + ", Name: " + firstName + " " + lastName;
+        return "Person{ id=" + id + ", firstName='" + firstName + "', lastName='" + lastName +
+                "', number of borrowedBooks=" + loanedBooks.size() + '}';
     }
 
-    // Getters and setters
+    public int getId() {
+        return id;
+    }
+
     public String getFirstName() {
         return firstName;
     }

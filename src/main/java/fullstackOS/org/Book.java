@@ -1,43 +1,27 @@
 package fullstackOS.org;
 
+import java.util.Objects;
+import java.util.UUID;
+
 public class Book {
-    private String id;
-    private String title;
-    private String author;
+    private final String id;
+    private final String title;
+    private final String author;
     private boolean available;
     private Person borrower;
 
     public Book(String title, String author) {
-        this.id = generateId();
-        if (title == null || title.isEmpty()) {
-            throw new IllegalArgumentException("Book title cannot be null or empty.");
-        }
-        if (author == null || author.isEmpty()) {
-            throw new IllegalArgumentException("Book author cannot be null or empty.");
-        }
-
-        this.title = title;
-        this.author = author;
+        this.id = UUID.randomUUID().toString();
+        this.title = Objects.requireNonNull(title, "Title cannot be null");
+        this.author = Objects.requireNonNull(author, "Author cannot be null");
         this.available = true;
-        this.borrower = null;
     }
 
     public Book(String title, String author, Person borrower) {
         this(title, author);
-        this.borrower = borrower;
-        this.available = false;
+        setBorrower(borrower);
     }
 
-    private String generateId() {
-        // Generate a unique ID for the book
-        return "BOOK" + System.currentTimeMillis();
-    }
-
-    public String getBookInformation() {
-        return "Book ID: " + id + ", Title: " + title + ", Author: " + author + ", Available: " + available;
-    }
-
-    // Getters and setters
     public String getId() {
         return id;
     }
@@ -54,15 +38,17 @@ public class Book {
         return available;
     }
 
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }
-
     public Person getBorrower() {
         return borrower;
     }
 
     public void setBorrower(Person borrower) {
         this.borrower = borrower;
+        this.available = (borrower == null);
+    }
+
+    public String getBookInformation() {
+        String borrowerInfo = borrower != null ? " PersonId: " + borrower.getId() : "-";
+        return String.format("Book{ id=%s, title=%s, author=%s, available=%b, borrower=%s }", id, title, author, available, borrowerInfo);
     }
 }

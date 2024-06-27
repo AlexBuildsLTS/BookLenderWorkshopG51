@@ -28,6 +28,7 @@ public class App {
         // Create a person instance
         Person person = new Person(firstName, lastName);
         // Display person information
+        System.out.println("Person ID: " + person.getId());
         System.out.println(person.getPersonInformation());
 
         // Update person's first and last name to demonstrate setters
@@ -37,7 +38,7 @@ public class App {
         System.out.println("First Name: " + person.getFirstName());
         System.out.println("Last Name: " + person.getLastName());
 
-        // Input Book details with validation
+        // Input Book details
         String bookTitle;
         String bookAuthor;
         do {
@@ -59,17 +60,21 @@ public class App {
         // Create a book instance
         Book book = new Book(bookTitle, bookAuthor);
         // Display book information using getters
+        System.out.println("Book ID: " + book.getId());
         printBookInformation(book);
 
-        // Loan a book to the person
+        // Loaning the book to person
         person.loanBook(book);
 
         // Display person information after borrowing the book
+        System.out.println("Person information after borrowing a book:");
+        System.out.println("Person ID: " + person.getId());
         System.out.println(person.getPersonInformation());
-        // Display book information after borrowing the book using getters
+
+        // Display book information after borrowing the book
         System.out.println("Book Information After Loan:");
+        System.out.println("Book ID: " + book.getId());
         printBookInformation(book);
-        System.out.println("Borrower: " + (book.getBorrower() != null ? book.getBorrower().getFirstName() + " " + book.getBorrower().getLastName() : "None"));
 
         // Display loaned books
         System.out.println("Loaned Books:");
@@ -81,11 +86,14 @@ public class App {
         person.returnBook(book);
 
         // Display person information after returning the book
+        System.out.println("Person information after returning the book:");
+        System.out.println("Person ID: " + person.getId());
         System.out.println(person.getPersonInformation());
-        // Display book information after returning the book using getters
+
+        // Display book information after returning the book
         System.out.println("Book Information After Return:");
+        System.out.println("Book ID: " + book.getId());
         printBookInformation(book);
-        System.out.println("Borrower: " + (book.getBorrower() != null ? book.getBorrower().getFirstName() + " " + book.getBorrower().getLastName() : "None"));
     }
 
     private static void printBookInformation(Book book) {
@@ -93,5 +101,10 @@ public class App {
         System.out.println("Title: " + book.getTitle());
         System.out.println("Author: " + book.getAuthor());
         System.out.println("Available: " + book.isAvailable());
+        if (book.getBorrower() != null) {
+            System.out.println("Borrower: " + book.getBorrower().getFirstName() + " " + book.getBorrower().getLastName());
+        } else {
+            System.out.println("Borrower: None");
+        }
     }
 }
