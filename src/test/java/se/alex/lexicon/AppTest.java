@@ -1,4 +1,4 @@
-package fullstackOS.org;
+package se.alex.lexicon;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
